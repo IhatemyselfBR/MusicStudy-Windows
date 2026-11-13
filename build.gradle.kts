@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:2.13.2")
     implementation(compose.desktop.currentOs)
     implementation("com.microsoft.onnxruntime:onnxruntime:1.31.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.application
 import io.github.hsadeghi.demucs.Separator
 import io.github.hsadeghi.demucs.SessionFactory
@@ -170,6 +171,7 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "MusicStudy",
     ) {
+        var showStudies by remember { mutableStateOf(false) }
         var selected by remember { mutableStateOf<File?>(null) }
         var status by remember { mutableStateOf("Pronto para começar.") }
         var progress by remember { mutableStateOf(0) }
@@ -188,6 +190,9 @@ fun main() = application {
             ) {
                 Text("MusicStudy", fontSize = 32.sp)
                 Text("Estudos e ferramentas musicais")
+                Button(onClick = { showStudies = true }) {
+                    Text("Abrir Estudos e Anotações")
+                }
 
                 Divider()
 
@@ -247,6 +252,17 @@ fun main() = application {
                 Spacer(Modifier.height(20.dp))
                 Text("MusicStudy Desktop 2.1.0")
                 Text("Processamento local com ONNX Runtime.")
+            }
+        }
+
+        if (showStudies) {
+            Dialog(onCloseRequest = { showStudies = false }) {
+                Surface(
+                    modifier = Modifier.fillMaxSize().padding(20.dp),
+                    elevation = 12.dp
+                ) {
+                    StudiesScreen(onClose = { showStudies = false })
+                }
             }
         }
     }
